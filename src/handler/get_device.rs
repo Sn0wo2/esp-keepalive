@@ -1,11 +1,9 @@
 use crate::db;
-use crate::response::AnyhowErrorExt;
+use crate::response::IntoResponseExt;
 use anyhow::anyhow;
 use axum::extract::{Query, State};
 use axum::response::IntoResponse;
-use axum::Json;
 use serde::Deserialize;
-use serde_json::json;
 
 #[derive(Debug, Deserialize)]
 pub struct GetDeviceQuery {
@@ -20,10 +18,7 @@ pub(crate) async fn handle(
 
     match device {
         Ok(Some(device)) => {
-            Json(json!({
-                "success": true,
-                "data": device
-            })).into_response()
+            device.into_response()
         }
         Ok(None) => {
             anyhow!("invalid device_id").into_response()

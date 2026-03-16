@@ -1,12 +1,11 @@
 use crate::db;
-use crate::response::{AnyhowErrorExt, AnyhowResponse};
+use crate::response::IntoResponseExt;
 use anyhow::anyhow;
 use axum::extract::rejection::JsonRejection;
 use axum::extract::State;
 use axum::response::IntoResponse;
 use axum::Json;
 use serde::Deserialize;
-use std::fmt::Display;
 
 #[derive(Debug, Deserialize)]
 pub struct PostDeviceRequest {

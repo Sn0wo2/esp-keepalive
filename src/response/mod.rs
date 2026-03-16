@@ -32,11 +32,7 @@ pub fn success_response<T: serde::Serialize>(data: T) -> Response {
     ).into_response()
 }
 
-pub trait AnyhowResponse<T> {
-    fn into_response(self) -> Response;
-}
-
-impl<T> AnyhowResponse<T> for anyhow::Result<T>
+impl<T> IntoResponseExt for anyhow::Result<T>
 where
     T: serde::Serialize,
 {
@@ -48,11 +44,11 @@ where
     }
 }
 
-pub trait AnyhowErrorExt {
+pub trait IntoResponseExt {
     fn into_response(self) -> Response;
 }
 
-impl AnyhowErrorExt for anyhow::Error {
+impl IntoResponseExt for anyhow::Error {
     fn into_response(self) -> Response {
         error_response(self)
     }

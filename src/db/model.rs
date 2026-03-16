@@ -1,3 +1,5 @@
+use crate::response;
+use axum::response::{IntoResponse, Response};
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +13,12 @@ pub struct Model {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub rssi: Option<i32>,
     pub last_seen: DateTime,
+}
+
+impl IntoResponse for Device {
+    fn into_response(self) -> Response {
+        response::success_response(self)
+    }
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
