@@ -1,0 +1,16 @@
+[package]
+name = "esp-keepalive"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+axum = "0.8.8"
+axum-server = "0.8.0"
+sea-orm = { version = "1.1.19", features = ["sqlx-sqlite", "chrono", "runtime-tokio-rustls", "macros"] }
+serde_json = "1.0.149"
+tokio = { version = "1.50.0", features = ["full"] }
+chrono = "0.4.44"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "local-time"] }
+serde = { version = "1.0.228", features = ["derive"] }
+anyhow = { version = "1.0.102", features = ["backtrace"] }
