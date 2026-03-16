@@ -14,3 +14,4 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "local-time"] }
 serde = { version = "1.0.228", features = ["derive"] }
 anyhow = { version = "1.0.102", features = ["backtrace"] }
+utoipa = { version = "5.4.0", features = ["chrono"] }

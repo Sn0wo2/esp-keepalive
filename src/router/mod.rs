@@ -1,5 +1,6 @@
 mod notfound;
 mod v1;
+mod openapi;
 
 use crate::db::Database;
 use axum::Router;
@@ -13,6 +14,7 @@ pub trait RouterExt {
         F: FnOnce(AppRouter) -> AppRouter;
     fn init_device(self) -> Self;
     fn init_notfound(self) -> Self;
+    fn init_openapi(self) -> Self;
 }
 
 impl RouterExt for AppRouter {
@@ -30,8 +32,15 @@ impl RouterExt for AppRouter {
     fn init_notfound(self) -> Self {
         notfound::init(self)
     }
+
+    fn init_openapi(self) -> Self {
+        openapi::register(self)
+    }
 }
 
 pub fn init() -> AppRouter {
-    Router::new().init_v1(|v1| v1.init_device()).init_notfound()
+    Router::new()
+        .init_v1(|v1| v1.init_device())
+        .init_openapi()
+        .init_notfound()
 }
